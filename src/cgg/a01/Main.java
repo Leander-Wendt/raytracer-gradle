@@ -5,7 +5,7 @@ import static cgtools.Color.*;
 import cgg.*;
 
 public class Main {
-
+// Testline :)
   public static void main(String[] args) {
     final int width = 480;
     final int height = 270;
