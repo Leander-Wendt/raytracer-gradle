@@ -5,13 +5,13 @@ import static cgtools.Color.*;
 import cgg.*;
 
 public class Main {
-// Testline :)
   public static void main(String[] args) {
     final int width = 480;
     final int height = 270;
 
     // This class instance defines the contents of the image.
-    ConstantColor content = new ConstantColor(gray);
+    // ConstantColor content = new ConstantColor(black);
+    Circle content = new Circle(white, red, width, height, 100);
 
     // Creates an image and iterates over all pixel positions inside the image.
     Image image = new Image(width, height);
@@ -23,7 +23,7 @@ public class Main {
     }
 
     // Write the image to disk.
-    final String filename = "doc/a01-image.png";
+    final String filename = "doc/a01-disc.png";
     image.write(filename);
     System.out.println("Wrote image: " + filename);
   }
