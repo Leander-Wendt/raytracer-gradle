@@ -3,21 +3,47 @@ package cgg.a01;
 import cgtools.*;
 import java.util.ArrayList;
 
+import cgg.Image;
+
 // Represents the contents of an image. Provides the same color for all pixels.
 public class PolkaDots implements Sampler {
   Color bgColor, cColor;
   double cx, cy, r;
-  int row, column;
+  int row, column, width, height;
 
-  public PolkaDots(Color bgColor, Color cColor, double width, double height, double r, int amount) {
+  public PolkaDots(Color bgColor, Color cColor, int width, int height, double r, int amount) {
     this.bgColor = bgColor;
     this.cColor = cColor;
+    this.width = width;
+    this.height = height;
     cx = width / 2;
     cy = height / 2;
     this.r = r;
     row = getDivider(amount);
     column = amount / row;
     if (row > column) swap(row, column);
+    genImage();
+  }
+
+  public void genImage () {
+    Image image = new Image(width, height);
+    for (int x = 0; x <= width / column; x++) {
+      for (int y = 0; y <= height / row; y++) {
+        // Sets the color for one particular pixel.
+        Color temp = getColor(x, y);
+        image.setPixel (x, y, temp);
+        /*for (int i = 0; i <= column; i++) {
+          for (int k = 0; k <= row; i++){
+            // temp = new Color( ... ) für changing colors
+            //image.setPixel(x + (width / column * i), y + (height / row * k), temp);
+            
+          }
+        }*/
+      }
+    }
+    final String filename = "a01-polka-dots";
+    image.write(filename);
+    System.out.println("Wrote image: " + filename);
   }
 
   // Returns the color for the given position.
@@ -35,7 +61,7 @@ public class PolkaDots implements Sampler {
         if (num % i == 0) 
             temp.add(i);
     }
-    return temp.get(temp.size());
+    return temp.get(temp.size() / 2);
   }
 
   private void swap (int a, int b){

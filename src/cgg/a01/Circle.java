@@ -7,12 +7,12 @@ public class Circle implements Sampler {
   Color bgColor, cColor;
   double cx, cy, r;
 
-  public Circle(Color bgColor, Color cColor, double width, double height, double r) {
+  public Circle(Color bgColor, Color cColor, int width, int height) {
     this.bgColor = bgColor;
     this.cColor = cColor;
     cx = width / 2;
     cy = height / 2;
-    this.r = r;
+    r = height / 3;
   }
 
   // Returns the color for the given position.
