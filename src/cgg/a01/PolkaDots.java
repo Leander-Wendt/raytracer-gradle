@@ -27,8 +27,8 @@ public class PolkaDots implements Sampler {
 
   public void genImage () {
     Image image = new Image(width, height);
-    for (int x = 0; x <= width / column; x++) {
-      for (int y = 0; y <= height / row; y++) {
+    for (int x = 0; x != width /* column*/; x++) {
+      for (int y = 0; y != height /* row*/; y++) {
         // Sets the color for one particular pixel.
         Color temp = getColor(x, y);
         image.setPixel (x, y, temp);
