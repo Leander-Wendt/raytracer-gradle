@@ -30,6 +30,6 @@ public class Main {
 
     // Polka Dots Image
     // background color, circle color, width, height, circle radius, amount of circles
-    new PolkaDots(black, red, 500, 250, 20, 6); 
+    new PolkaDots(black, red, width, height, 25, 40); 
   }
 }
