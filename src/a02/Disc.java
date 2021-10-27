@@ -4,15 +4,14 @@ import cgtools.Color;
 import cgtools.Sampler;
 
 public class Disc implements Sampler {
-    private int width, height, cx, cy, radius;
+    private int cx, cy, radius;
     private Color c, bg;
 
-    Disc (int width, int height, int x, int y, int radius, Color c) {
-        this.width = width;
-        this.height = height;
+    Disc (int x, int y, int radius, Color c) {
         cx = x;
         cy = y;
         this.c = c;
+        this.radius = radius;
         bg = new Color(0, 0, 0);       
     }
 
@@ -23,5 +22,9 @@ public class Disc implements Sampler {
         if (d <= radius) return c;
         return bg;
       }
+
+    public int getRadius() {
+        return radius;
+    }
     
 }
