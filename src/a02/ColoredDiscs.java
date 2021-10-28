@@ -13,19 +13,16 @@ public class ColoredDiscs implements Sampler {
         this.width = width;
         this.height = height;
         for (int i = 0; i < amount; i++){
-            // change params for different discs
-            // x, y, r, c
             int x = (int) Math.round(rng.random() * width);
             int y = (int) Math.round(rng.random() * height);
             int r = (int) Math.round(rng.random() * 100);
-            Color temp = new Color((int) Math.round(rng.random() * 255), (int) Math.round(rng.random() * 255), (int) Math.round(rng.random() * 255));
+            Color temp = new Color((int) Math.round(rng.random()), (int) Math.round(rng.random()), (int) Math.round(rng.random()));
             discs.add(new Disc( x, y, r, temp));
         }
         sortDiscs();        
     }
 
     public Color getColor(double x, double y) {
-        // TODO for each schleife
         Color temp = new Color (0, 0, 0);
         for (Disc d : discs){
             if (!d.getColor(x, y).equals(temp)) {
@@ -36,7 +33,18 @@ public class ColoredDiscs implements Sampler {
     }
 
     public void sortDiscs() {
-        // figure out Java Comparator
-        discs.sort();
+        boolean sorted = false;
+        Disc temp;
+        while (!sorted) {
+            sorted = true;
+            for (int i = 0; i < discs.size() - 1; i++) {
+                if (discs.get(i).getRadius() > discs.get(i + 1).getRadius()) {
+                    temp = discs.get(i);
+                    discs.set(i, discs.get(i + 1));
+                    discs.set(i + 1, temp);
+                    sorted = false;
+                }
+            }
+        }
     }
 }

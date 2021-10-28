@@ -6,6 +6,7 @@ public class Image {
   private int width;
   private int height;
   private double[] img;
+
   public Image(int width, int height) {
     this.width = width;
     this.height = height;
@@ -24,10 +25,15 @@ public class Image {
     ImageWriter.write(filename, img, width, height);
   }
 
-  /*public void sample(Sampler s) {
-    notYetImplemented();
+  public void sample(Sampler s) {
+    for (int x = 0; x < width; x++) {
+      for (int y = 0; y < height; y++) {
+        // Sets the color for one particular pixel.
+        setPixel(x, y, s.getColor(x, y));
+      }
+    }
   }
-
+  /*
   private void notYetImplemented() {
     System.err.println("Please complete the implementation of class cgg.Image as part of assignment 1.");
     System.exit(1);
