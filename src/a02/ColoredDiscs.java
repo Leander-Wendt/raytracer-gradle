@@ -9,15 +9,14 @@ public class ColoredDiscs implements Sampler {
     private ArrayList<Disc> discs = new ArrayList<>();
     int width, height;
     ColoredDiscs (int width, int height, int amount) {
-        Random rng = new Random(); 
         this.width = width;
         this.height = height;
         for (int i = 0; i < amount; i++){
-            int x = (int) Math.round(rng.random() * width);
-            int y = (int) Math.round(rng.random() * height);
-            int r = (int) Math.round(rng.random() * 100);
-            Color temp = new Color((int) Math.round(rng.random()), (int) Math.round(rng.random()), (int) Math.round(rng.random()));
-            discs.add(new Disc( x, y, r, temp));
+            int x = (int) Math.round(Random.random() * width);
+            int y = (int) Math.round(Random.random() * height);
+            int r = (int) Math.round(Random.random() * 100);
+            Color temp = new Color(Random.random(), Random.random(), Random.random());
+            discs.add(new Disc(x, y, r, temp));
         }
         sortDiscs();        
     }

@@ -15,10 +15,12 @@ public class Image {
 
   public void setPixel(int x, int y, Color color) {
     int i = (((y * width) + x) * 3);
-    img[i] = color.r;
-    img[i + 1] = color.g;
-    img[i + 2] = color.b;
-
+    img[i] = Math.pow(color.r, (1 / 2.2));
+    img[i + 1] = Math.pow(color.g, (1 / 2.2));
+    img[i + 2] = Math.pow(color.b, (1 / 2.2));
+    //img[i] = color.r;
+    //img[i+1] = color.g;
+    //img[i+2] = color.b;
   }
 
   public void write(String filename) {
@@ -28,7 +30,6 @@ public class Image {
   public void sample(Sampler s) {
     for (int x = 0; x < width; x++) {
       for (int y = 0; y < height; y++) {
-        // Sets the color for one particular pixel.
         setPixel(x, y, s.getColor(x, y));
       }
     }
