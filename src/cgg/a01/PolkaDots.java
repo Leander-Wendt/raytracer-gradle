@@ -59,7 +59,7 @@ public class PolkaDots implements Sampler {
   }
 
   // return the average divider of a given number
-  private int getDivider (int num) {
+  public static int getDivider (int num) {
     ArrayList<Integer> temp = new ArrayList<>();
     for (int i = 1; i <= num; i++){
         if (num % i == 0) 

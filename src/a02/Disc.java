@@ -1,7 +1,5 @@
 package a02;
 
-import java.util.Comparator;
-
 import javax.swing.text.StringContent;
 
 import cgtools.Color;
