@@ -20,9 +20,8 @@ public class Main {
     image.write(filename);
     System.out.println("Wrote image: " + filename);
 
-    ColoredDiscs content2 = new ColoredDiscs(width, height, 50);
     Image image2 = new Image(width, height);
-    image2.superSample(content2, ABTASTUNGEN_PRO_PIXEL);
+    image2.superSample(content, ABTASTUNGEN_PRO_PIXEL);
 
     // Write the image to disk.
     final String filename2 = "doc/a02-discs-supersampling.png";
