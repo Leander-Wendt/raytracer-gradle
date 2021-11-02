@@ -1,7 +1,5 @@
 package a02;
 
-import javax.swing.text.StringContent;
-
 import cgtools.Color;
 import cgtools.Sampler;
 
