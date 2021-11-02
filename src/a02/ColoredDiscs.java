@@ -8,7 +8,7 @@ import cgtools.Random;
 public class ColoredDiscs implements Sampler {
     private ArrayList<Disc> discs = new ArrayList<>();
     int width, height;
-    ColoredDiscs (int width, int height, int amount) {
+    public ColoredDiscs (int width, int height, int amount) {
         this.width = width;
         this.height = height;
         for (int i = 0; i < amount; i++){
