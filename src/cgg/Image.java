@@ -39,27 +39,20 @@ public class Image {
   public void superSample(Sampler s, int abtastungen) {
     for (int x = 0; x < width; x++) {
       for (int y = 0; y < height; y++) {
-        Color temp = s.getColor(x, y);
-        if(!temp.equals(new Color(0, 0, 0))){
-          // Abtastungen aufteilen in ein gleichmäßiges Raster
-          int n = PolkaDots.getDivider(abtastungen);
-          int counter = 0;
-          Color farbe = temp;
-          for (int xi = 0; xi < n; xi++){
-            for (int yi = 0; yi < n; yi++){
-              double rx = Random.random();
-              double ry = Random.random();
-              double xs = x + (xi + rx) / n;
-              double ys = y + (yi + ry) / n;
-              farbe = Color.add(farbe, s.getColor(xs, ys));
-            }
+        int n = PolkaDots.getDivider(abtastungen);
+        Color farbe = s.getColor(x, y);
+        for (int xi = 0; xi < n; xi++){
+          for (int yi = 0; yi < n; yi++){
+            double rx = Random.random();
+            double ry = Random.random();
+            double xs = x + (xi + rx) / n;
+            double ys = y + (yi + ry) / n;
+            farbe = Color.add(farbe, s.getColor(xs, ys));
           }
-          farbe = Color.divide(farbe, 100);
-          setPixel(x, y, farbe);
-        } else {
-          setPixel(x, y, temp);
         }
-      }
+        farbe = Color.divide(farbe, 100);
+        setPixel(x, y, farbe);
+      } 
     }
   }
 }
