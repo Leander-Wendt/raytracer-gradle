@@ -19,9 +19,6 @@ public class Image {
     img[i] = Math.pow(color.r, (1 / 2.2));
     img[i + 1] = Math.pow(color.g, (1 / 2.2));
     img[i + 2] = Math.pow(color.b, (1 / 2.2));
-    //img[i] = color.r;
-    //img[i+1] = color.g;
-    //img[i+2] = color.b;
   }
 
   public void write(String filename) {

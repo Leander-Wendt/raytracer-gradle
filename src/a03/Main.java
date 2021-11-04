@@ -13,12 +13,16 @@ public class Main {
     // 1 / root(3) ~ 1.73
     Camera cam = new Camera(Math.PI / 2, width, height);
     Ray temp = cam.shootRay(10, 10);
+    System.out.println("Erwartet: 0, 0, 0");
     System.out.println(temp.x0);
     temp = cam.shootRay(0, 0);
+    System.out.println("Erwartet: -1.73, 1.73, -1.73");
     System.out.println(temp.d);
     temp = cam.shootRay(5, 5);
+    System.out.println("Erwartet: 0, 0, -1");
     System.out.println(temp.d);
     temp = cam.shootRay(10, 10);
+    System.out.println("Erwartet: 1.73, -1.73, -1.73");
     System.out.println(temp.d);
     // Creates an image and iterates over all pixel positions inside the image.
     /*Image image = new Image(width, height);

@@ -16,8 +16,12 @@ public class Camera {
     }
 
     public Ray shootRay(double x, double y) {
-        Direction v = Vector.direction(x, y, - 1 / Math.pow(3, 1 / 2));
-        //v = Vector.normalize(v);
+        double xr = x - (w / 2);
+        double yr = (h / 2) - y;
+        double zr = -1 * ((w / 2) / Math.round(Math.tan(angle / 2)));
+
+        Direction v = Vector.direction(xr, yr, zr);
+        v = Vector.normalize(v);
         return new Ray(origin, v, 0, 100);
     }
 }
