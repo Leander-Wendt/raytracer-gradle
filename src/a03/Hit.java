@@ -3,7 +3,6 @@ package a03;
 import cgtools.Color;
 import cgtools.Direction;
 import cgtools.Point;
-import cgtools.Vector;
 
 public class Hit {
     Point x;

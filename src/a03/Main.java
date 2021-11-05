@@ -12,8 +12,6 @@ public class Main {
     // This class instance defines the contents of the image.
     // ColoredDiscs content = new ColoredDiscs(width, height, 50);
 
-    // 3.2 Tests:
-    // 1 / root(3) ~ 1.73
     // Camera cam = new Camera(Math.PI / 2, width, height);
     Sphere s = new Sphere(Vector.point(0, 0, -2), 1, new Color(0,0,0));
     Ray r = new Ray(Vector.point(0, 0, 0), Vector.direction(0, 0, -1), 0, Double.POSITIVE_INFINITY);

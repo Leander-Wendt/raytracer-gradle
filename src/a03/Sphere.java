@@ -18,7 +18,6 @@ public class Sphere {
 
     public Hit intersect(Ray r){
         Point x0 = Vector.subtract(r.x0, Vector.direction(center.x, center.y, center.z));
-        // Point x0 = r.x0;
         double a = Vector.dotProduct(r.d, r.d);
         double b = 2 * Vector.dotProduct(x0, r.d);
         double c = Vector.dotProduct(x0, x0) - (radius * radius);
