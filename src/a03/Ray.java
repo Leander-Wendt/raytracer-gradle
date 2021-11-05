@@ -5,9 +5,9 @@ import cgtools.Point;
 import cgtools.Vector;
 
 public class Ray {
-    Point x0;
-    double tmin, tmax;
-    Direction d;
+    public Point x0;
+    public double tmin, tmax;
+    public Direction d;
 
     Ray (Point x0, Direction d, double tmin, double tmax){
         this.x0 = x0;
