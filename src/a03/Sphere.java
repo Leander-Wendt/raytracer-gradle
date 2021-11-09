@@ -1,16 +1,17 @@
 package a03;
 
+import a04.Shape;
 import cgtools.Color;
 import cgtools.Direction;
 import cgtools.Point;
 import cgtools.Vector;
 
-public class Sphere {
+public class Sphere implements Shape{
     Point center;
     double radius;
     Color col;
 
-    public Sphere(Point center, double radius, Color c){
+    public Sphere(Point center, double radius, Color c) {
         this.center = center;
         this.radius = radius;
         this.col = c;

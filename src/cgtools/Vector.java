@@ -10,6 +10,10 @@ public final class Vector {
     return new Direction(x, y, z);
   }
 
+  public static Direction direction(Point p) {
+    return new Direction(p.x, p.y, p.z);
+  }
+
   public static Point point(double x, double y, double z) {
     return new Point(x, y, z);
   }
