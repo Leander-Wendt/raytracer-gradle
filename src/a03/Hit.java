@@ -6,7 +6,7 @@ import cgtools.Point;
 
 public class Hit {
     Point x;
-    double t;
+    public double t;
     Direction n;
     Color c;
     

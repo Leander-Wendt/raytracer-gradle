@@ -26,7 +26,7 @@ public class Plane implements Shape {
         double b = Vector.dotProduct(r.d, n);
         if (b != 0){    
             double t = a / b;
-            if (Vector.length(Vector.direction(Vector.add(r.x0, Vector.subtract(p, Vector.multiply(t, r.d))))) < anchor) {
+            if (Vector.length(Vector.direction(Vector.add(r.x0, Vector.subtract(p, Vector.multiply(t, r.d))))) < anchor && r.isValid(t)) {
                 Point hPoint = Vector.add(r.x0, Vector.multiply(t, r.d));
                 return new Hit(hPoint, t, c, n);
             }
@@ -34,5 +34,5 @@ public class Plane implements Shape {
         } else {
             return null;
         }
-    }     
+    } 
 }
