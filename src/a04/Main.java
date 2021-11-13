@@ -48,7 +48,7 @@ public class Main {
     image.superSample(content, ABTASTUNGEN_PRO_PIXEL);
 
     // Write the image to disk.
-    final String filename = "doc/a04-three-spheres.png";
+    final String filename = "doc/a04-3-spheres.png";
     image.write(filename);
     System.out.println("Wrote image: " + filename);
 
