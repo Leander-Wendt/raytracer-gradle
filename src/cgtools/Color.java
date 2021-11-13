@@ -84,11 +84,19 @@ public final class Color {
   public static final Color red = color(1, 0, 0);
   public static final Color green = color(0, 1, 0);
   public static final Color blue = color(0, 0, 1);
+  public static final Color darkgrey = color(0.1, 0.1, 0.1);
 
   private static Color hue(double h) {
     double r = Math.abs(h * 6 - 3) - 1;
     double g = 2 - Math.abs(h * 6 - 2);
     double b = 2 - Math.abs(h * 6 - 4);
     return clamp(color(r, g, b));
+  }
+
+  public static Color shade(Direction normal, Color color) {
+    Direction lightDir = normalize(direction(1, 1, 0.5));
+    Color ambient = multiply(0.1, color);
+    Color diffuse = multiply(0.9 * Math.max(0, dotProduct(lightDir, normal)), color);
+    return add(ambient, diffuse);
   }
 }

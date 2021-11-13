@@ -25,7 +25,7 @@ public class Raytracer implements Sampler {
             Sphere s = scene.get(i);
             Hit h = s.intersect(cam.shootRay(x, y));
             if (h != null) {
-                return shade(h.n, h.c);
+                return shade(h.getN(), h.getColor());
             }
         }
         return new Color(0.1, 0.1, 0.1);

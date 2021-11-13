@@ -8,7 +8,7 @@ public class Camera {
     double angle, w, h;
     Point origin;
 
-    Camera (double a, double w, double h) {
+    public Camera (double a, double w, double h) {
         this.angle = a;
         this.w = w;
         this.h = h;
@@ -22,6 +22,6 @@ public class Camera {
 
         Direction v = Vector.direction(xr, yr, zr);
         v = Vector.normalize(v);
-        return new Ray(origin, v, 0, 100);
+        return new Ray(origin, v, 0, Double.POSITIVE_INFINITY);
     }
 }

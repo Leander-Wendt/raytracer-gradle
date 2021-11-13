@@ -8,16 +8,17 @@ import cgtools.Point;
 import cgtools.Vector;
 
 public class Plane implements Shape {
-    public double anchor;
+    public double radius;
     public Point p;
     public Direction n;
     Color c;
 
-    public Plane(double anchor, Point p, Direction n) {
-        this.anchor = anchor;
+    // Anchor aus Normalenvektor berechenen, oder andersrum FUUUUCK
+    public Plane(Point p, Direction n, Color c, double radius) {
+        this.radius = radius;
         this.p = p;
         this.n = n;
-        c = new Color(0.75, 0.75, 0.75);
+        this.c = c;
     }
 
     public Hit intersect (Ray r) {
@@ -26,13 +27,12 @@ public class Plane implements Shape {
         double b = Vector.dotProduct(r.d, n);
         if (b != 0){    
             double t = a / b;
-            if (Vector.length(Vector.direction(Vector.add(r.x0, Vector.subtract(p, Vector.multiply(t, r.d))))) < anchor && r.isValid(t)) {
+            if (Vector.length(Vector.direction(Vector.add(r.x0, Vector.subtract(p, Vector.multiply(t, r.d))))) < radius && r.isValid(t)) {
                 Point hPoint = Vector.add(r.x0, Vector.multiply(t, r.d));
                 return new Hit(hPoint, t, c, n);
             }
             return null;
-        } else {
-            return null;
         }
+        return null;    
     } 
 }

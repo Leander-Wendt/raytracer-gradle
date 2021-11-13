@@ -11,13 +11,19 @@ public class Background implements Shape {
     Point center;
     double radius;
 
-    public Background() {
+    public Background(Color bg) {
         center = Vector.point(0, 0, 0);
         radius = Double.POSITIVE_INFINITY;
-        bg = new Color(0.01, 0.01, 0.01);
+        this.bg = bg;
     }
 
     public Hit intersect(Ray r) {
-        return new Hit(Vector.point(0, 0, 0), Double.POSITIVE_INFINITY, bg, Vector.direction(0, 0, 0));
+        if (r.tmax == Double.POSITIVE_INFINITY){
+            return new Hit(Vector.point(0, 0, 0), Double.POSITIVE_INFINITY, bg, r.d);
+        }
+        if (r.tmax == Double.NEGATIVE_INFINITY){
+            return new Hit(Vector.point(0, 0, 0), Double.NEGATIVE_INFINITY, bg, r.d);
+        }
+        return null;
     }
 }
