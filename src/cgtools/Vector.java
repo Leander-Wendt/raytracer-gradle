@@ -139,12 +139,12 @@ public final class Vector {
   }
 
   public static Direction rdmDir() {
-    double x = Random.random() * 2 + 1;
-    double y = Random.random() * 2 + 1;
-    double z = Random.random() * 2 + 1;
+    double x = Random.random() * 2 - 1;
+    double y = Random.random() * 2 - 1;
+    double z = Random.random() * 2 - 1;
 
     if (Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2) > 1){
-      return rdmDir();
+      return rdmDir();    
     }
     return direction(x, y, z);
   }

@@ -1,6 +1,7 @@
 package a03;
 
 import a04.Shape;
+import a05.DiffuseMaterial;
 import a05.Material;
 import cgtools.Color;
 import cgtools.Direction;
@@ -39,12 +40,12 @@ public class Sphere implements Shape{
             if (t1 < t2 && r.isValid(t1)){
                 Point temp = Vector.add(r.x0, Vector.multiply(t1, r.d));
                 Direction n = Vector.divide(Vector.subtract(temp, center), radius); 
-                return new Hit(temp, t1, col, n);
+                return new Hit(temp, t1, col, n, mat);
             }
             if (t1 > t2 && r.isValid(t2)){
                 Point temp = Vector.add(r.x0, Vector.multiply(t2, r.d));
                 Direction n = Vector.divide(Vector.subtract(temp, center), radius); 
-                return new Hit(temp, t2, col, n);
+                return new Hit(temp, t2, col, n, mat);
             }    
         }
         return null;

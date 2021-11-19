@@ -5,14 +5,13 @@ import java.util.List;
 
 import a03.Hit;
 import a03.Ray;
-import cgtools.Color;
-import cgtools.Vector;
 
 public class Group implements Shape {
     private List<Shape> shapes;
 
-    public Group () {
+    public Group (Shape bg) {
         shapes = new ArrayList<>();
+        shapes.add(bg);
     }
 
     public void add(Shape s){
@@ -20,9 +19,8 @@ public class Group implements Shape {
     }
     
     @Override
-    // Rekursiv implementieren
     public Hit intersect(Ray r) {
-        Hit result = shapes.get(0).intersect(r);//new Hit(Vector.point(0, 0, 0), Double.POSITIVE_INFINITY, Color.darkgrey, Vector.direction(Vector.zero));
+        Hit result = shapes.get(0).intersect(r);
         for (Shape s : shapes){
             Hit h = s.intersect(r);
             if (h != null && result.t > h.t){

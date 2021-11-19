@@ -14,7 +14,7 @@ public class RecursionRaytracer implements Sampler {
     int depth;
 
     public RecursionRaytracer(double w, double h, Group scene, int depth){
-        cam = new Camera(Math.PI / 3, w, h);
+        cam = new Camera(Math.PI / 2, w, h);
         this.scene = scene;
         this.depth = depth;
     }
@@ -39,3 +39,4 @@ public class RecursionRaytracer implements Sampler {
     }
     
 }
+

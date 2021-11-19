@@ -21,12 +21,12 @@ public class BackMat implements Material {
 
     @Override
     public Color emission(Ray r, Hit h) {
-        return albedo;
+        return emission;
     }
 
     @Override
     public Color albedo(Ray r, Hit h) {
-        return emission;
+        return albedo;
     }
     
 }

@@ -6,7 +6,7 @@ import cgtools.Color;
 import cgtools.Sampler;
 
 public class Raytracer_2 implements Sampler{
-    Group scene = new Group();
+    Group scene;
     Camera cam;
 
     public Raytracer_2 (double width, double height, Group scene) {

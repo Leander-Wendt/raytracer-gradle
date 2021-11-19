@@ -9,31 +9,28 @@ public class Main {
   public static void main(String[] args) {
     final double width = 480;
     final double height = 270;
-    final int ABTASTUNGEN_PRO_PIXEL = 100;
-
-    Group scene_1 = new Group();
-    Group scene_2 = new Group();
+    final int ABTASTUNGEN_PRO_PIXEL = 100;    
 
     Shape background = new Background(Color.darkgrey);
-    Shape ground = new Plane(Vector.point(0.0, -0.5, 0.0), Vector.direction(0, 1, 0), Color.gray, Double.POSITIVE_INFINITY);
+    Shape ground = new Plane(Vector.point(0.0, -0.5, 0.0), Vector.direction(0, 1, 0), Double.POSITIVE_INFINITY, Color.gray);
     Shape globe1 = new Sphere(Vector.point(-1, -0.25, -2.5), 0.7, Color.red);
     Shape globe2 = new Sphere(Vector.point(0, -0.25, -2.5), 0.6, Color.green);
     Shape globe3 = new Sphere(Vector.point(1, -0.25, -2.5), 0.7, Color.blue);
     // Background must be first in List   
-    scene_1.add(background);     
+    Group scene_1 = new Group(background);    
     scene_1.add(ground);
     scene_1.add(globe1);        
     scene_1.add(globe3);    
     scene_1.add(globe2);
 
     Shape sky = new Background(new Color(0.1, 0.1, 0.2));
-    Shape ocean = new Plane(Vector.point(0.0, -0.49, 0.0), Vector.direction(0, 0.1, 0), Color.blue, Double.POSITIVE_INFINITY);
-    Shape boat = new Plane(Vector.point(-1, -0.4, 0.0), Vector.direction(0, 0.2, 0), new Color(0.9, 0.45, 0.1), 2);
+    Shape ocean = new Plane(Vector.point(0.0, -0.49, 0.0), Vector.direction(0, 0.1, 0), Double.POSITIVE_INFINITY, Color.blue);
+    Shape boat = new Plane(Vector.point(-1, -0.4, 0.0), Vector.direction(0, 0.2, 0), 2, new Color(0.9, 0.45, 0.1));
     Shape island = new Sphere(Vector.point(0.9, -1, -1), 1, new Color (1, 1, 0.5));
     Shape moon = new Sphere(Vector.point(-8, 2, -12), 1, new Color (1, 1, 0.8)); 
     Shape moon2 = new Sphere(Vector.point(-10, 7, -20), 1, new Color (1, 0.4, 0.4)); 
     // Background must be first in List
-    scene_2.add(sky);
+    Group scene_2 = new Group(sky);
     scene_2.add(ocean);        
     scene_2.add(island);
     scene_2.add(boat);    

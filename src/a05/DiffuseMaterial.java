@@ -16,7 +16,7 @@ public class DiffuseMaterial implements Material {
 
     @Override
     public Ray scatteringRay(Ray scatR, Hit h) {
-        return new Ray(h.x, Vector.add(h.getN(), Vector.rdmDir()), 0.000001, Double.POSITIVE_INFINITY);
+        return new Ray(h.x, Vector.add(h.getN(), Vector.rdmDir()), 0.00001, Double.POSITIVE_INFINITY);
     }
 
     @Override
