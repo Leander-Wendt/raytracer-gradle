@@ -9,7 +9,7 @@ public class Ray {
     public double tmin, tmax;
     public Direction d;
 
-    Ray (Point x0, Direction d, double tmin, double tmax){
+    public Ray (Point x0, Direction d, double tmin, double tmax){
         this.x0 = x0;
         this.d = d;
         this.tmin = tmin;

@@ -2,6 +2,7 @@ package a04;
 
 import a03.Hit;
 import a03.Ray;
+import a05.Material;
 import cgtools.Color;
 import cgtools.Direction;
 import cgtools.Point;
@@ -12,6 +13,7 @@ public class Plane implements Shape {
     public Point p;
     public Direction n;
     Color c;
+    Material mat;
 
     // Anchor aus Normalenvektor berechenen, oder andersrum FUUUUCK
     public Plane(Point p, Direction n, Color c, double radius) {
@@ -19,6 +21,13 @@ public class Plane implements Shape {
         this.p = p;
         this.n = n;
         this.c = c;
+    }
+
+    public Plane(Point p, Direction n, Material mat, double radius) {
+        this.radius = radius;
+        this.p = p;
+        this.n = n;
+        this.mat = mat;
     }
 
     public Hit intersect (Ray r) {

@@ -1,6 +1,7 @@
 package a03;
 
 import a04.Shape;
+import a05.Material;
 import cgtools.Color;
 import cgtools.Direction;
 import cgtools.Point;
@@ -10,11 +11,20 @@ public class Sphere implements Shape{
     Point center;
     double radius;
     Color col;
+    Material mat;
 
     public Sphere(Point center, double radius, Color c) {
         this.center = center;
         this.radius = radius;
         this.col = c;
+        this.mat = new DiffuseMaterial(col);
+    }
+
+    public Sphere(Point center, double radius, Material mat) {
+        this.center = center;
+        this.radius = radius;
+        this.col = Color.green;
+        this.mat = mat;
     }
 
     public Hit intersect(Ray r){

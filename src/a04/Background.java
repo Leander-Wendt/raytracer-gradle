@@ -2,6 +2,7 @@ package a04;
 
 import a03.Hit;
 import a03.Ray;
+import a05.Material;
 import cgtools.Color;
 import cgtools.Point;
 import cgtools.Vector;
@@ -10,11 +11,18 @@ public class Background implements Shape {
     Color bg;
     Point center;
     double radius;
+    Material mat;
 
     public Background(Color bg) {
         center = Vector.point(0, 0, 0);
         radius = Double.POSITIVE_INFINITY;
         this.bg = bg;
+    }
+
+    public Background(Material mat) {
+        center = Vector.point(0, 0, 0);
+        radius = Double.POSITIVE_INFINITY;
+        this.mat = mat;
     }
 
     public Hit intersect(Ray r) {

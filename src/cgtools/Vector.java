@@ -138,6 +138,17 @@ public final class Vector {
     return color(a.x, a.y, a.z);
   }
 
+  public static Direction rdmDir() {
+    double x = Random.random() * 2 + 1;
+    double y = Random.random() * 2 + 1;
+    double z = Random.random() * 2 + 1;
+
+    if (Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2) > 1){
+      return rdmDir();
+    }
+    return direction(x, y, z);
+  }
+
   public static final Point zero = point(0, 0, 0);
   public static final Direction xAxis = direction(1, 0, 0);
   public static final Direction yAxis = direction(0, 1, 0);
