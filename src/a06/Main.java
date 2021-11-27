@@ -1,5 +1,6 @@
 package a06;
 
+import a03.Camera;
 import a03.Sphere;
 import a04.Background;
 import a04.Group;
@@ -13,6 +14,9 @@ import cgtools.Vector;
 
 public class Main {
     public static void main(String[] args) {
+      double start = System.currentTimeMillis();
+      double end;
+
       final double width = 480;
       final double height = 270;
       final int ABTASTUNGEN_PRO_PIXEL = 100;
@@ -20,17 +24,24 @@ public class Main {
   
       Shape background = new Background(Color.white);
       Shape ground = new Plane(Vector.point(0.0, -0.5, 0.0), Vector.direction(0, 1, 0), Double.POSITIVE_INFINITY, new DiffuseMaterial(Color.lightgrey));
-      Shape sphere1 = new Sphere(Vector.point(0.0, 0.5, -2.0), 0.5, new Glass(Color.white, false));
-      Shape sphere2 = new Sphere(Vector.point(0.0, 0.0, 12.0), 0.5, Color.cyan);
-      Shape sphere3 = new Sphere(Vector.point(0.0, 0.0, 2.0), 1.0, new DiffuseMaterial(Color.green));
-      Shape sphere4 = new Sphere(Vector.point(-1.0, 0.0, -4.0), 1.0, new DiffuseMaterial(Color.violet));
+      Shape sphere1 = new Sphere(Vector.point(0.0, 0.0, 2.0), 1.0, new DiffuseMaterial(Color.violet));      
+      Shape sphere2 = new Sphere(Vector.point(1.0, 0.0, -2.0), 0.5, new Glass(Color.red, false));
+      Shape sphere3 = new Sphere(Vector.point(-1.0, 0.0, -2.0), 0.5, new Glass(Color.blue, true));
+      Shape sphere4 = new Sphere(Vector.point(-1.0, 1.0, -4.0), 0.8, new Mirror(Color.lightgrey, false, 0.3));
+      Shape sphere5 = new Sphere(Vector.point(1.0, 1.0, -4.0), 0.8, new Mirror(Color.lightgrey, false, 0.3));
+      Shape sphere6 = new Sphere(Vector.point(0.0, 0.0, -6.0), 1.0, new Glass(Color.white, false));
+      Shape sphere7 = new Sphere(Vector.point(1.5, 0.0, -10.0), 1.0, new DiffuseMaterial(Color.blue));
+      Shape sphere8 = new Sphere(Vector.point(-1.5, 0.0, -10.0), 1.0, new DiffuseMaterial(Color.red));
       Group scene1 = new Group(background);
       scene1.add(ground);
       scene1.add(sphere1);
       scene1.add(sphere2); 
-      scene1.add(sphere4);         
-      scene1.add(sphere2);    
-      scene1.add(sphere3);
+      scene1.add(sphere3);         
+      scene1.add(sphere4);    
+      scene1.add(sphere5);
+      scene1.add(sphere6);
+      scene1.add(sphere7);
+      scene1.add(sphere8);
       
       
       // This class instance defines the contents of the image.
@@ -43,6 +54,22 @@ public class Main {
       final String filename = "doc/a06-mirrors-glass-1.png";
       image.write(filename);
       System.out.println("Wrote image: " + filename);
+
+      Camera cam = content.getCamera();
+      cam.turn();
+      cam.setOrigin(Vector.point(0, 0, -8));
+      content.changeCamera(cam);
+
+      image = new Image((int) width, (int) height);
+      image.superSample(content, ABTASTUNGEN_PRO_PIXEL);
+
+      final String filename2 = "doc/a06-mirrors-glass-2.png";
+      image.write(filename2);
+      System.out.println("Wrote image: " + filename2);
+
+      end = System.currentTimeMillis();
+
+      System.out.println("Rendertime: " + (end - start) / 1000 + " seconds");
 
 
       

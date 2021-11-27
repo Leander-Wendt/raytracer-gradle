@@ -7,6 +7,8 @@ import cgtools.Vector;
 
 public class Main {
   public static void main(String[] args) {
+    long start = System.currentTimeMillis();
+    long end;
     final double width = 480;
     final double height = 270;
     final int ABTASTUNGEN_PRO_PIXEL = 100;    
@@ -58,6 +60,10 @@ public class Main {
     final String filename2 = "doc/a04-scene.png";
     image.write(filename2);
     System.out.println("Wrote image: " + filename2);
+
+    end = System.currentTimeMillis();
+
+    System.out.println("Rendertime: " + (end - start) / 1000 + " seconds");
   }
 }
 

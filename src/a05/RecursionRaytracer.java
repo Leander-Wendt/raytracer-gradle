@@ -17,6 +17,14 @@ public class RecursionRaytracer implements Sampler {
         this.scene = scene;
         this.depth = depth;
     }
+    
+    public void changeCamera (Camera cam) {
+        this.cam = cam;
+    }
+
+    public Camera getCamera(){
+        return this.cam;
+    }
 
     @Override
     public Color getColor(double x, double y) {
