@@ -29,40 +29,45 @@ public class Glass implements Material {
     // if bug, use n1, n2 as local variable 
     @Override
     public Ray scatteringRay(Ray r, Hit h) {
+        Double n1 = this.n1; 
+        Double n2 = this.n2;
         Direction n = h.getN();
-        if (Vector.dotProduct(r.d, n) > 0) {
+        Direction d = r.d;
+        Direction temp;
+        if (Vector.dotProduct(n, d) > 0) {
             n = Vector.negate(n);
-            Double temp = n1;
+            Double temp2 = n1;
             n1 = n2;
-            n2 = temp;
+            n2 = temp2;
         }
-
-        Direction re = refract(r.d, n, n1, n2);
-        if (re != null){
-            if (Random.random() > schlick(r.d, n, n1, n2)) {
-                return new Ray(h.x, re, 0, Double.POSITIVE_INFINITY);
-            } else {                
-                return new Ray(h.x, reflect(r.d, n), 0.0001, Double.POSITIVE_INFINITY);
-            }
+        if (refract(d, n, n1, n2) == null) {
+            temp = reflect(d, n);
         } else {
-            return new Ray(h.x, reflect(r.d, n), 0.0001, Double.POSITIVE_INFINITY);
+            if (Random.random() > schlick(d, n, n1, n2)) {
+                temp = refract(d, n, n1, n2);
+            } else {
+                temp = reflect(d, n);
+            }
         }        
+        return new Ray(h.x, temp, 0.000000001, Double.POSITIVE_INFINITY);
     }
 
     public Direction reflect(Direction d, Direction n) {
-        Double a = Vector.dotProduct(n, d);
-        Direction b = Vector.multiply(n, 2 * a);
+        Double a = 2 * Vector.dotProduct(n, d);
+        Direction b = Vector.multiply(n, a);
         return Vector.subtract(d, b);
     }
     
     public Direction refract(Direction d, Direction n, Double n1, Double n2) {
         double r1 = n1 / n2;
-        double c = Vector.dotProduct(Vector.negate(n), d);
-        return Vector.add(Vector.multiply(r1, d), Vector.multiply((r1 * c - Math.sqrt(1 - (r1 * r1) * (1 - c * c))), n));
+        double c = (Vector.dotProduct(n, d));
+        double discr = 1 - (r1 * r1) * (1 - c * c);
+        return Vector.add(Vector.negate(Vector.multiply(r1, d)), Vector.multiply((r1 * c - Math.sqrt(discr)), n));
     }
 
     public double schlick(Direction d, Direction n, Double n1, Double n2) {
-        double r0 = Math.pow((n1 - n2) / (n1 + n2), 2);        
+        double r0 = (n1 - n2) / (n1 + n2);
+        r0 = Math.pow(r0, 2);        
         return r0 + (1 - r0) * Math.pow(1 + Vector.dotProduct(d, n), 5);
     }
 

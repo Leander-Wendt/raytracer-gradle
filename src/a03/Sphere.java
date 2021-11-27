@@ -39,13 +39,16 @@ public class Sphere implements Shape{
             double t2 = (-1 * b - Math.sqrt(diskriminante)) / 2 * a;
             if (t1 < t2 && r.isValid(t1)){
                 Point temp = Vector.add(r.x0, Vector.multiply(t1, r.d));
-                Direction n = Vector.divide(Vector.subtract(temp, center), radius); 
+                Direction n = Vector.divide(Vector.subtract(temp, center), radius);
                 return new Hit(temp, t1, col, n, mat);
-            }
-            if (t1 > t2 && r.isValid(t2)){
+            } else {
+
+            }if (t1 > t2 && r.isValid(t2)){
                 Point temp = Vector.add(r.x0, Vector.multiply(t2, r.d));
                 Direction n = Vector.divide(Vector.subtract(temp, center), radius); 
                 return new Hit(temp, t2, col, n, mat);
+            } else {
+                return null;
             }    
         }
         return null;

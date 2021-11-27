@@ -24,7 +24,7 @@ public class RecursionRaytracer implements Sampler {
         return calcRadiance(scene, cam.shootRay(x, y), depth);
     }
 
-    private Color calcRadiance(Shape s, Ray r, int depth) {
+    private Color calcRadiance(Group s, Ray r, int depth) {
         if (depth == 0) {
             return Color.black;
         }

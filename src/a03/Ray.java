@@ -24,4 +24,5 @@ public class Ray {
     public Boolean isValid (double t){
         return tmin <= t && tmax >= t;
     }
+
 }
