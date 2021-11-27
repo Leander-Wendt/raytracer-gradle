@@ -11,26 +11,26 @@ import cgtools.Vector;
 public class Glass implements Material {
     public Color albedo;
     public Color emission;
-    public Double n1;
-    public Double n2;
+    public Double n3;
+    public Double n4;
 
     public Glass(Color mC, Boolean water){
         this.albedo = mC;
         this.emission = Color.black;
         if (water) {
-            this.n2 = 1.3;
+            this.n4 = 1.3;
         } else {
-            this.n2 = 1.5;            
+            this.n4 = 1.5;            
         }
-        this.n1 = 1.0;
+        this.n3 = 1.0;
     }
 
 
     // if bug, use n1, n2 as local variable 
     @Override
     public Ray scatteringRay(Ray r, Hit h) {
-        Double n1 = this.n1; 
-        Double n2 = this.n2;
+        Double n1 = this.n3; 
+        Double n2 = this.n4;
         Direction n = h.getN();
         Direction d = r.d;
         Direction temp;

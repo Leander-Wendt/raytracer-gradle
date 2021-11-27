@@ -1,6 +1,5 @@
 package a06;
 
-import a03.Ray;
 import a03.Sphere;
 import a04.Background;
 import a04.Group;
@@ -10,7 +9,6 @@ import a05.DiffuseMaterial;
 import a05.RecursionRaytracer;
 import cgg.Image;
 import cgtools.Color;
-import cgtools.Direction;
 import cgtools.Vector;
 
 public class Main {
@@ -22,10 +20,10 @@ public class Main {
   
       Shape background = new Background(Color.white);
       Shape ground = new Plane(Vector.point(0.0, -0.5, 0.0), Vector.direction(0, 1, 0), Double.POSITIVE_INFINITY, new DiffuseMaterial(Color.lightgrey));
-      Shape sphere1 = new Sphere(Vector.point(0.0, 0.0, -2.0), 0.5, new Glass(Color.white, false));
+      Shape sphere1 = new Sphere(Vector.point(0.0, 0.5, -2.0), 0.5, new Glass(Color.white, false));
       Shape sphere2 = new Sphere(Vector.point(0.0, 0.0, 12.0), 0.5, Color.cyan);
       Shape sphere3 = new Sphere(Vector.point(0.0, 0.0, 2.0), 1.0, new DiffuseMaterial(Color.green));
-      Shape sphere4 = new Sphere(Vector.point(-1.0, 0.0, -5.0), 1.0, new DiffuseMaterial(Color.violet));
+      Shape sphere4 = new Sphere(Vector.point(-1.0, 0.0, -4.0), 1.0, new DiffuseMaterial(Color.violet));
       Group scene1 = new Group(background);
       scene1.add(ground);
       scene1.add(sphere1);
@@ -49,12 +47,7 @@ public class Main {
 
       
       // Tests:
-    
-      Sphere s0 = new Sphere(Vector.point(0.0, 0.0, -2.0), 1.0, Color.white);
-      Ray r0 = new Ray(Vector.point(0.0, 0.0, 0.0), Vector.direction(0, 0, -1.0), 0, Double.POSITIVE_INFINITY);
-      Ray r1 = new Ray(Vector.point(0.0, 0.0, -2.0), Vector.direction(0, 0, -1.0), 0, Double.POSITIVE_INFINITY);
-      Ray r2 = new Ray(Vector.point(0.0, 0.0, -4.0), Vector.direction(0, 0, -1.0), 0, Double.POSITIVE_INFINITY);
-
+      /*
       Glass mat = new Glass(Color.white, true);
       Direction d0 = Vector.direction(0.0, 0.0, 0.0);
       Direction d1 = Vector.direction(0.707, -0.707, 0.0);
@@ -63,6 +56,8 @@ public class Main {
       Direction d4 = Vector.direction(-0.1, 0.995, 0.0);
     
       Direction n0 = Vector.direction(0.0, 1.0, 0.0);
+
+      System.out.println("Tests:");
 
       System.out.println(mat.reflect(d0, n0));
       System.out.println(mat.reflect(d1, n0));
@@ -78,6 +73,6 @@ public class Main {
       System.out.println(mat.refract(d3, n0, 1.0, 1.5));
       System.out.println(mat.refract(d3, n0, 1.5, 1.0));
       System.out.println(mat.refract(d4, n0, 1.0, 1.5));
-      System.out.println(mat.refract(d4, n0, 1.5, 1.0));
+      System.out.println(mat.refract(d4, n0, 1.5, 1.0));*/
     }
 }

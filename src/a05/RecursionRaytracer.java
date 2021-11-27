@@ -4,7 +4,6 @@ import a03.Camera;
 import a03.Hit;
 import a03.Ray;
 import a04.Group;
-import a04.Shape;
 import cgtools.Color;
 import cgtools.Sampler;
 
