@@ -5,7 +5,9 @@ import a03.Hit;
 import a03.Ray;
 import a04.Group;
 import cgtools.Color;
+import cgtools.Matrix;
 import cgtools.Sampler;
+import cgtools.Vector;
 
 public class RecursionRaytracer implements Sampler {
     Group scene;
@@ -13,13 +15,18 @@ public class RecursionRaytracer implements Sampler {
     int depth;
 
     public RecursionRaytracer(double w, double h, Group scene, int depth){
-        cam = new Camera(Math.PI / 2, w, h);
+        Matrix v = Matrix.rotation(Vector.yAxis, 0);
+        cam = new Camera(Math.PI / 2, w, h, v);
         this.scene = scene;
         this.depth = depth;
     }
     
     public void changeCamera (Camera cam) {
         this.cam = cam;
+    }
+
+    public void moveCamera(Matrix v){
+        cam.setV(v);
     }
 
     public Camera getCamera(){

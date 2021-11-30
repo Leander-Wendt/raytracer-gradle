@@ -10,6 +10,7 @@ import a05.DiffuseMaterial;
 import a05.RecursionRaytracer;
 import cgg.Image;
 import cgtools.Color;
+import cgtools.Matrix;
 import cgtools.Vector;
 
 public class Main {
@@ -55,10 +56,8 @@ public class Main {
       image.write(filename);
       System.out.println("Wrote image: " + filename);
 
-      Camera cam = content.getCamera();
-      cam.turn();
-      cam.setOrigin(Vector.point(0, 0, -8));
-      content.changeCamera(cam);
+      Matrix m = Matrix.multiply(Matrix.rotation(Vector.yAxis, 180), Matrix.translation(Vector.point(0, 0, 8)));
+      content.moveCamera(m);
 
       image = new Image((int) width, (int) height);
       image.superSample(content, ABTASTUNGEN_PRO_PIXEL);
