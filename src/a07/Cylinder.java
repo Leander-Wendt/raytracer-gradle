@@ -1,8 +1,8 @@
-package cgg.a07;
+package a07;
 
-import cgg.a03.*;
-import cgg.a04.*;
-import cgg.a05.*;
+import a03.*;
+import a04.*;
+import a05.*;
 import cgtools.*;
 
 //Quelle zum überlegen:
