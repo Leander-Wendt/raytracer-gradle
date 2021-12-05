@@ -1,6 +1,5 @@
 package a06;
 
-import a03.Camera;
 import a03.Sphere;
 import a04.Background;
 import a04.Group;

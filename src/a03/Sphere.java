@@ -41,9 +41,8 @@ public class Sphere implements Shape{
                 Point temp = Vector.add(r.x0, Vector.multiply(t1, r.d));
                 Direction n = Vector.divide(Vector.subtract(temp, center), radius);
                 return new Hit(temp, t1, col, n, mat);
-            } else {
-
-            }if (t1 > t2 && r.isValid(t2)){
+            } 
+            if (t1 > t2 && r.isValid(t2)){
                 Point temp = Vector.add(r.x0, Vector.multiply(t2, r.d));
                 Direction n = Vector.divide(Vector.subtract(temp, center), radius); 
                 return new Hit(temp, t2, col, n, mat);
