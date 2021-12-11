@@ -3,7 +3,6 @@ package a08;
 import a04.Background;
 import a04.Shape;
 import a05.DiffuseMaterial;
-import a05.RecursionRaytracer;
 import cgg.Image;
 import cgtools.Color;
 import cgtools.Matrix;
@@ -21,19 +20,18 @@ public class Main {
 
       final double width = 480;
       final double height = 270;
-      final int ABTASTUNGEN_PRO_PIXEL = 100;
+      final int ABTASTUNGEN_PRO_PIXEL = 16;
 
       Shape background = new Background(Color.white);
       Shape ground = new Plane(Vector.point(0.0, -0.5, 0.0), Vector.direction(0, 1, 0), Double.POSITIVE_INFINITY, new Glass(Color.lightblue, true));
-      Group scene = new Group(background);
+      
+      TransformationGroup scene = new TransformationGroup();
+      
+      scene.add(background);
       scene.add(ground);
+      scene = forrest(scene, 24, 16);
       
-      circleTrees(5, 1, 1, 1, scene);
-      circleTrees(10, 1, 1, 1, scene);
-      circleTrees(20, 1, 1, 1, scene);
-      circleTrees(30, 1, 1, 1, scene);      
-      
-      RecursionRaytracer content = new RecursionRaytracer(width, height, scene, 100);
+      RecursionRaytracer2 content = new RecursionRaytracer2(width, height, scene, 100);
       Image image = new Image((int) width, (int) height);
       image.superSample(content, ABTASTUNGEN_PRO_PIXEL);
   
@@ -41,7 +39,7 @@ public class Main {
       image.write(filename);
       System.out.println("Wrote image: " + filename);
 
-      Matrix m = Matrix.multiply(Matrix.rotation(Vector.xAxis, -5), Matrix.translation(Vector.point(0, 0, 5)), Matrix.translation(Vector.point(0, 5, 0)));
+      Matrix m = Matrix.multiply(Matrix.rotation(Vector.xAxis, -25), Matrix.translation(Vector.point(0, 0, 30)), Matrix.translation(Vector.point(0, 5, 0)));
       content.moveCamera(m);
 
       image = new Image((int) width, (int) height);
@@ -53,24 +51,23 @@ public class Main {
 
       end = System.currentTimeMillis();
 
-      System.out.println("Rendertime: " + (end - start) / 1000 + " seconds");      
+      System.out.println("Rendertime: " + (end - start) / 1000 + " seconds || " + ((end - start) / 1000) / 60 + " minutes.");      
       
     }
 
-    private static void circleTrees(int anzahlObjekte, double w, double h, int multiplikator, Group scene){
-        double angle = (Math.PI * 2.0) / anzahlObjekte;
-        double radiusX = multiplikator * anzahlObjekte + w;
-        double radiusY = multiplikator * anzahlObjekte + h;
-        double startX = 0;
-        double startY = 0;
-
-        for (int i = 0; i < anzahlObjekte; i++) {
-          double midPosX = (Math.cos(angle * i) * radiusX) + startX;
-          double midPosY = (Math.sin(angle * i) * radiusY) + startY;
-          Shape stem = new Cylinder(Vector.point(midPosX, 0.0, midPosY), 0.3, 2, new Mirror(Color.brown, true, 1.0));
-          Shape crown = new Sphere(Vector.point(midPosX, 1.5, midPosY), 0.9, new DiffuseMaterial(Color.mint));
-          scene.add(stem);
-          scene.add(crown);
+    private static TransformationGroup forrest(TransformationGroup scene, int w, int h){
+        for (int i = -1 * w / 2; i <= w / 2; i += 2){
+            for (int j = -1 * h / 2; j <= h / 2; j += 2){
+                // Instancing caused bugs for some reason, probably call by reference / value mashup
+                Shape stem = new Cylinder(Vector.point(0, 0.0, 0), 0.3, 2, new Mirror(Color.brown, true, 1.0));
+                Shape crown = new Sphere(Vector.point(0, 1.5, 0), 0.9, new DiffuseMaterial(Color.mint));
+                TransformationGroup tree = new TransformationGroup();
+                tree.add(stem);
+                tree.add(crown);
+                tree.setTransformation(new Transformation(Matrix.translation(Vector.point(i, 0, j))));
+                scene.add(tree);
+            }
         }
+        return scene;
     }
 }

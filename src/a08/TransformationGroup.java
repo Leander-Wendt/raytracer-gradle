@@ -12,14 +12,29 @@ public class TransformationGroup implements Shape {
     private List<Shape> shapes;
     private Transformation trans;
 
-    public TransformationGroup (Shape bg) {
+    public TransformationGroup () {
         this.shapes = new ArrayList<>();
-        this.shapes.add(bg);
         this.trans = new Transformation(Matrix.identity);
     }
 
     public void add(Shape s){
         shapes.add(s);
+    }
+
+    public Transformation getTransformation(){
+        return trans;
+    }
+
+    public void setTransformation(Transformation trans){
+        this.trans = trans;
+    }
+
+    public List<Shape> getScene(){
+        return shapes;
+    }
+
+    public void setScene(List<Shape> shapes){
+        this.shapes = shapes;
     }
     
     @Override
