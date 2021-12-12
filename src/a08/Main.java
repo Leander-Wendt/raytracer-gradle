@@ -70,4 +70,30 @@ public class Main {
         }
         return scene;
     }
+
+    /*private static TransformationGroup forrest(TransformationGroup scene, int w, int h){
+        Shape stem = new Cylinder(Vector.point(0, 0.0, 0), 0.3, 2, new Mirror(Color.brown, true, 1.0));
+        Shape crown = new Sphere(Vector.point(0, 1.5, 0), 0.9, new DiffuseMaterial(Color.mint));
+        TransformationGroup tree = new TransformationGroup();
+        tree.add(stem);
+        tree.add(crown);
+        TransformationGroup temp = new TransformationGroup();
+        temp.setTransformation(new Transformation(Matrix.translation(Vector.point(0, 0, -5))));
+        temp.add(tree);
+
+        TransformationGroup temp2 = new TransformationGroup();
+        temp2.add(temp);
+        temp2.setTransformation(new Transformation(Matrix.translation(Vector.point(2, 0, 0))));
+        for (int i = -1 * w / 2; i <= w / 2; i += 2){
+            for (int j = -1 * h / 2; j <= h / 2; j += 2){
+                // Instancing caused bugs for some reason, probably call by reference / value mashup
+                TransformationGroup temp2 = new TransformationGroup();
+                temp2.add(temp);
+                temp2.setTransformation(new Transformation(Matrix.translation(Vector.point(i, 0, j))));
+                temp = temp2;
+            }
+        }
+        scene.add(temp2);
+        return scene;
+    }*/
 }
