@@ -1,4 +1,9 @@
-  package cgg;
+package cgg;
+
+import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import cgg.a01.PolkaDots;
 import cgtools.*;
@@ -34,9 +39,51 @@ public class Image {
   }
 
   public void superSample(Sampler s, int abtastungen) {
-    for (int x = 0; x < width; x++) {
+    int cores = 10; // Runtime.getRuntime().availableProcessors();
+    System.out.println("Using " + cores + " cores. " + "Available cores: " + Runtime.getRuntime().availableProcessors());
+    superSampleHelper(s, abtastungen);
+    //ExecutorService pool = Executors.newFixedThreadPool(cores);
+    
+    /*int n = 10;
+    ArrayList<Future<Integer>> values = new ArrayList<>();
+    for (int i = 0; i < n; i++){
+      final int j = i;
+      values.add(pool.submit(() -> j * j));
+    }*/
+    /*Thread[] threads = new Thread[cores];
+
+    for (int i = 0; i < cores; i++){
+      final int core = i;
+      threads[i] = new Thread(){
+        public void run() {
+          superSampleHelper(s, abtastungen);
+        }
+      };
+      threads[i].start();
+    }
+
+    for (int i = 0; i < cores; i++){
+      try{
+      threads[i].join();
+      }
+      catch (Exception e){
+        System.out.println("Fehler beim zusammenfügen der Threads.");
+      }
+    }*/   
+  }
+
+  private void superSampleHelper(Sampler s, int abtastungen) {
+    for (int x = 0; x < width; x++) {      
       for (int y = 0; y < height; y++) {
         int n = PolkaDots.getDivider(abtastungen);
+        //Callable<Color> calculateOnePixel = new Callable<Color>() {
+        //  Color call() {
+        //    return s.getColor(x,y);
+        //  }
+        //};
+        //ExecutorService pool = Executors.newFixedThreadPool(1);
+        //Future<Color> pixel = pool.submit(calculateOnePixel);
+        //Color farbe = pixel.get();
         Color farbe = s.getColor(x, y);
         for (int xi = 0; xi < n; xi++){
           for (int yi = 0; yi < n; yi++){
@@ -44,11 +91,13 @@ public class Image {
             double ry = Random.random();
             double xs = x + (xi + rx) / n;
             double ys = y + (yi + ry) / n;
+            //Color farbe = pixel.get();
             farbe = Color.add(farbe, s.getColor(xs, ys));
           }
         }
         farbe = Color.divide(farbe, 100);
         setPixel(x, y, farbe);
+        //pool.shutdown();
       } 
     }
   }
