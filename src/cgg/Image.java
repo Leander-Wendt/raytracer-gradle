@@ -1,6 +1,8 @@
 package cgg;
 
 import java.util.ArrayList;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -41,7 +43,13 @@ public class Image {
   public void superSample(Sampler s, int abtastungen) {
     int cores = 10; // Runtime.getRuntime().availableProcessors();
     System.out.println("Using " + cores + " cores. " + "Available cores: " + Runtime.getRuntime().availableProcessors());
-    superSampleHelper(s, abtastungen);
+    try {
+      superSampleHelper(s, abtastungen);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    } catch (ExecutionException e) {
+      e.printStackTrace();
+    }
     //ExecutorService pool = Executors.newFixedThreadPool(cores);
     
     /*int n = 10;
@@ -72,32 +80,34 @@ public class Image {
     }*/   
   }
 
-  private void superSampleHelper(Sampler s, int abtastungen) {
+  private void superSampleHelper(Sampler s, int abtastungen) throws InterruptedException, ExecutionException {
     for (int x = 0; x < width; x++) {      
       for (int y = 0; y < height; y++) {
         int n = PolkaDots.getDivider(abtastungen);
-        //Callable<Color> calculateOnePixel = new Callable<Color>() {
-        //  Color call() {
-        //    return s.getColor(x,y);
-        //  }
-        //};
-        //ExecutorService pool = Executors.newFixedThreadPool(1);
-        //Future<Color> pixel = pool.submit(calculateOnePixel);
-        //Color farbe = pixel.get();
-        Color farbe = s.getColor(x, y);
-        for (int xi = 0; xi < n; xi++){
-          for (int yi = 0; yi < n; yi++){
-            double rx = Random.random();
-            double ry = Random.random();
-            double xs = x + (xi + rx) / n;
-            double ys = y + (yi + ry) / n;
-            //Color farbe = pixel.get();
-            farbe = Color.add(farbe, s.getColor(xs, ys));
+        final int fx = x;
+        final int fy = y;
+        Callable<Color> calculateOnePixel = new Callable<Color>() {
+          public Color call() {
+            Color farbe = s.getColor(fx, fy);
+            for (int xi = 0; xi < n; xi++){
+              for (int yi = 0; yi < n; yi++){
+                double rx = Random.random();
+                double ry = Random.random();
+                double xs = fx + (xi + rx) / n;
+                double ys = fy + (yi + ry) / n;
+                //Color farbe = pixel.get();
+                farbe = Color.add(farbe, s.getColor(xs, ys));
+              }
+            }
+            return Color.divide(farbe, 100);
           }
-        }
-        farbe = Color.divide(farbe, 100);
+        };
+        ExecutorService pool = Executors.newFixedThreadPool(1);
+        Future<Color> pixel = pool.submit(calculateOnePixel);
+        Color farbe = pixel.get();
+        //Color farbe = s.getColor(x, y);        
         setPixel(x, y, farbe);
-        //pool.shutdown();
+        pool.shutdown();
       } 
     }
   }
