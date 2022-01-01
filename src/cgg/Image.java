@@ -1,6 +1,7 @@
 package cgg;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -40,75 +41,54 @@ public class Image {
     }
   }
 
-  public void superSample(Sampler s, int abtastungen) {
-    int cores = 10; // Runtime.getRuntime().availableProcessors();
-    System.out.println("Using " + cores + " cores. " + "Available cores: " + Runtime.getRuntime().availableProcessors());
+  public void superSample(Sampler s, int abtastungen, int cores) {
     try {
-      superSampleHelper(s, abtastungen);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    } catch (ExecutionException e) {
-      e.printStackTrace();
-    }
-    //ExecutorService pool = Executors.newFixedThreadPool(cores);
-    
-    /*int n = 10;
-    ArrayList<Future<Integer>> values = new ArrayList<>();
-    for (int i = 0; i < n; i++){
-      final int j = i;
-      values.add(pool.submit(() -> j * j));
-    }*/
-    /*Thread[] threads = new Thread[cores];
 
-    for (int i = 0; i < cores; i++){
-      final int core = i;
-      threads[i] = new Thread(){
-        public void run() {
-          superSampleHelper(s, abtastungen);
-        }
-      };
-      threads[i].start();
-    }
+      System.out.println("Using " + cores + " cores. " + "Available cores: " + Runtime.getRuntime().availableProcessors());    
+      ExecutorService pool = Executors.newFixedThreadPool(cores);
+      List farben = new ArrayList<Future<Color>>();
 
-    for (int i = 0; i < cores; i++){
-      try{
-      threads[i].join();
-      }
-      catch (Exception e){
-        System.out.println("Fehler beim zusammenfügen der Threads.");
-      }
-    }*/   
-  }
+      for (int x = 0; x < width; x++) {      
+        for (int y = 0; y < height; y++) {
+          int n = PolkaDots.getDivider(abtastungen);
+          final int fx = x;
+          final int fy = y;
 
-  private void superSampleHelper(Sampler s, int abtastungen) throws InterruptedException, ExecutionException {
-    for (int x = 0; x < width; x++) {      
-      for (int y = 0; y < height; y++) {
-        int n = PolkaDots.getDivider(abtastungen);
-        final int fx = x;
-        final int fy = y;
-        Callable<Color> calculateOnePixel = new Callable<Color>() {
+          Callable<Color> calculateOnePixel = new Callable<Color>() {
           public Color call() {
-            Color farbe = s.getColor(fx, fy);
+            Color farbe = new Color(0, 0, 0);
             for (int xi = 0; xi < n; xi++){
               for (int yi = 0; yi < n; yi++){
                 double rx = Random.random();
                 double ry = Random.random();
                 double xs = fx + (xi + rx) / n;
                 double ys = fy + (yi + ry) / n;
-                //Color farbe = pixel.get();
                 farbe = Color.add(farbe, s.getColor(xs, ys));
               }
             }
-            return Color.divide(farbe, 100);
+            return Color.divide(farbe, n * n);
           }
         };
-        ExecutorService pool = Executors.newFixedThreadPool(1);
+
         Future<Color> pixel = pool.submit(calculateOnePixel);
-        Color farbe = pixel.get();
-        //Color farbe = s.getColor(x, y);        
-        setPixel(x, y, farbe);
-        pool.shutdown();
-      } 
-    }
+        farben.add(pixel);     
+        } 
+      }
+
+      for (int x = 0; x < width; x++) {
+        int offset = x * height;
+        for (int y = 0; y < height; y++) {
+          int index = offset + y;
+          Future<Color> pixel = (Future<Color>) farben.get(index);
+          Color color = pixel.get();
+          setPixel(x, y, color);
+        }
+      }
+      pool.shutdown();
+    } 
+    
+    catch (InterruptedException | ExecutionException e) {
+      e.printStackTrace();
+    }   
   }
 }

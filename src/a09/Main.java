@@ -16,8 +16,6 @@ import a03.Sphere;
 
 public class Main {
     public static void main(String[] args){
-      double start = System.currentTimeMillis();
-      double end;
 
       final double width = 480;
       final double height = 270;
@@ -30,26 +28,27 @@ public class Main {
       
       scene.add(background);
       scene.add(ground);
-      scene = square(scene, 16, 16);
+      scene = square(scene, 30, 30);
       
       RecursionRaytracer2 content = new RecursionRaytracer2(width, height, scene, 100);
       Matrix m = Matrix.multiply(Matrix.rotation(Vector.xAxis, -25), Matrix.translation(Vector.point(0, 0, 10)), Matrix.translation(Vector.point(0, 5, 0)));
       content.moveCamera(m);
 
       Image image = new Image((int) width, (int) height);
-      image.superSample(content, ABTASTUNGEN_PRO_PIXEL);
+      for (int i = 1; i <= Runtime.getRuntime().availableProcessors(); i++){          
+        double start = System.currentTimeMillis();
+        image.superSample(content, ABTASTUNGEN_PRO_PIXEL, i);
+        double end = System.currentTimeMillis();
+        System.out.println("Rendertime: " + (end - start) / 1000 + " seconds || " + ((end - start) / 1000) / 60 + " minutes.");    
+      }
   
       final String filename = "doc/a09-benchmark-scene.png";
       image.write(filename);
-      System.out.println("Wrote image: " + filename);
-
-      end = System.currentTimeMillis();
-
-      System.out.println("Rendertime: " + (end - start) / 1000 + " seconds || " + ((end - start) / 1000) / 60 + " minutes.");      
-      
+      System.out.println("Wrote image: " + filename);  
     }
 
     private static TransformationGroup square(TransformationGroup scene, int w, int h){
+        int count = 0;
         for (double i = -1 * w / 2; i <= w / 2; i += 1.5){
             for (double j = -1 * h / 2; j <= h / 2; j += 1.5){
                 // Instancing caused bugs for some reason, probably call by reference / value mashup
@@ -58,8 +57,10 @@ public class Main {
                 tree.add(crown);
                 tree.setTransformation(new Transformation(Matrix.translation(Vector.point(i, 0, j))));
                 scene.add(tree);
+                count++;
             }
         }
+        System.out.println(count + " Spheres in scene.");
         return scene;
     }
 }
