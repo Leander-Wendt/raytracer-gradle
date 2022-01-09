@@ -13,7 +13,7 @@ public class Main {
       final int ABTASTUNGEN_PRO_PIXEL = 100;
 
       Shape background = new Background(new BackMat(new TextureTransform(new Texture("doc/sky.jpg"), Matrix.rotation(Vector.yAxis, 0))));
-      Shape ground = new Plane(Vector.point(0, -1, 0), Vector.direction(0, 1, 0), 100, new ChessGrid(Color.black, Color.white, 100));
+      Shape ground = new Plane(Vector.point(0, -1, 0), Vector.direction(0, 1, 0), 100, new DiffuseMaterial(new ChessGrid(Color.white, Color.black, 1000)));
       Sphere earth = new Sphere(Vector.point(2, 0, -5), 1, new DiffuseMaterial(new TextureTransform(new Texture("doc/erde.jpg"), Matrix.rotation(Vector.yAxis, 10))));
       Sphere polka = new Sphere(Vector.point(-2, 0, -5), 1, new DiffuseMaterial(new TextureTransform(new PolkaDots(Color.violet, Color.cyan, 0.4), Matrix.scaling(20, 20, 0))));
 

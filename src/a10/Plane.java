@@ -37,8 +37,8 @@ public class Plane implements Shape {
             double t = a / b;
             if (Vector.length(Vector.direction(Vector.add(r.x0, Vector.subtract(p, Vector.multiply(t, r.d))))) < radius && r.isValid(t)) {
                 Point hPoint = Vector.add(r.x0, Vector.multiply(t, r.d));                
-                double u = (p.x / radius) + 0.5;
-	            double v = (p.z / radius) + 0.5;
+                double u = (hPoint.x / radius) + 0.5;
+	            double v = (hPoint.z / radius) + 0.5;
                 return new Hit(hPoint, t, c, n, mat, u, v);
             }
             return null;

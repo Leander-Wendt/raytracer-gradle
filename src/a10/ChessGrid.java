@@ -17,7 +17,6 @@ public class ChessGrid implements Sampler {
 	public Color getColor(double u, double v) {
 		int ui = (int) Math.floor((u - Math.floor(u)) * n);
 		int vi = (int) Math.floor((v - Math.floor(v)) * n);
-
 		if((ui + vi) % 2 == 0){
 			return cx;
 		} else {
