@@ -1,6 +1,5 @@
-package a08;
+package a10;
 
-import a03.Hit;
 import a03.Ray;
 import cgtools.Direction;
 import cgtools.Matrix;
@@ -27,9 +26,10 @@ public class Transformation {
         if (h != null) {
             Point transX = Matrix.multiply(matOut, h.x);
             Direction transN = Matrix.multiply(matOutN, h.getN());
-            return new Hit(transX, h.t, h.getColor(), transN, h.getMaterial());
+            return new Hit(transX, h.t, h.getColor(), transN, h.getMaterial(), h.getU(), h.getV());
         }
         return h;
     }
 }
+
 

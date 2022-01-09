@@ -1,9 +1,6 @@
-package a04;
+package a10;
 
-import a03.Hit;
 import a03.Ray;
-import a05.DiffuseMaterial;
-import a05.Material;
 import cgtools.Color;
 import cgtools.Direction;
 import cgtools.Point;
@@ -15,7 +12,6 @@ public class Plane implements Shape {
     public Direction n;
     public Color c;
     public Material mat;
-    double u, v;
 
     public Plane(Point p, Direction n, double radius, Color c) {
         this.radius = radius;
@@ -23,8 +19,6 @@ public class Plane implements Shape {
         this.n = n;
         this.c = c;
         this.mat = new DiffuseMaterial(c);
-        u = (x.x / r) + 0.5;
-	    v = (x.z / r) + 0.5;
     }
 
     public Plane(Point p, Direction n, double radius, Material mat) {
@@ -42,8 +36,10 @@ public class Plane implements Shape {
         if (b != 0){    
             double t = a / b;
             if (Vector.length(Vector.direction(Vector.add(r.x0, Vector.subtract(p, Vector.multiply(t, r.d))))) < radius && r.isValid(t)) {
-                Point hPoint = Vector.add(r.x0, Vector.multiply(t, r.d));
-                return new Hit(hPoint, t, c, n, mat);
+                Point hPoint = Vector.add(r.x0, Vector.multiply(t, r.d));                
+                double u = (p.x / radius) + 0.5;
+	            double v = (p.z / radius) + 0.5;
+                return new Hit(hPoint, t, c, n, mat, u, v);
             }
             return null;
         }

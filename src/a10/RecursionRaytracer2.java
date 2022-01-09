@@ -1,7 +1,6 @@
-package a08;
+package a10;
 
 import a03.Camera;
-import a03.Hit;
 import a03.Ray;
 import cgtools.Color;
 import cgtools.Matrix;
@@ -52,4 +51,5 @@ public class RecursionRaytracer2 implements Sampler {
     }
     
 }
+
 
