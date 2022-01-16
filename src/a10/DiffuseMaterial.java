@@ -10,13 +10,13 @@ public class DiffuseMaterial implements Material {
     Sampler emission;
 
     public DiffuseMaterial(Color mC){
-        this.albedo = new Albedo(mC);
-        this.emission = new Emission(mC);
+        this.albedo = new Constant(mC);
+        this.emission = new Constant(Color.black);
     }
 
     public DiffuseMaterial(Sampler s){
         this.albedo = s;
-        this.emission = s;
+        this.emission = new Constant(Color.black);
     }
 
     @Override

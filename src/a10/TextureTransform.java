@@ -10,7 +10,7 @@ public class TextureTransform implements Sampler {
     Sampler source;
     Matrix transform;
 
-    TextureTransform(Sampler source, Matrix transform){
+    public TextureTransform(Sampler source, Matrix transform){
         this.source = source;
         this.transform = transform;
     }

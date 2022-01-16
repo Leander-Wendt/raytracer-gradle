@@ -10,12 +10,12 @@ public class BackMat implements Material {
     public Sampler emission;
 
     public BackMat(Color c){
-        this.albedo = new Albedo(Color.black);
-        this.emission = new Emission(c);
+        this.albedo = new Constant(Color.black);
+        this.emission = new Constant(c);
     }
 
     public BackMat(Sampler c){
-        this.albedo = new Albedo(Color.black);
+        this.albedo = new Constant(Color.black);
         this.emission = c;
     }
 
