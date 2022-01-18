@@ -33,9 +33,9 @@ public class Sphere implements Shape{
         double c = Vector.dotProduct(x0, x0) - (radius * radius);
         double diskriminante = (b * b) - (4 * a * c);
         if (diskriminante >= 0) {
-            double t1 = (-1 * b + Math.sqrt(diskriminante)) / 2 * a;
-            double t2 = (-1 * b - Math.sqrt(diskriminante)) / 2 * a;
-            if (t1 < t2 && r.isValid(t1)){
+            double t1 = (-1 * b - Math.sqrt(diskriminante)) / (2 * a);
+            double t2 = (-1 * b + Math.sqrt(diskriminante)) / (2 * a);
+            if (r.isValid(t1)){
                 Point temp = Vector.add(r.x0, Vector.multiply(t1, r.d));
                 Direction n = Vector.divide(Vector.subtract(temp, center), radius);
                 double inclination = Math.acos(n.y);
@@ -44,7 +44,7 @@ public class Sphere implements Shape{
 	            double v = inclination / Math.PI;
                 return new Hit(temp, t1, col, n, mat, u, v);
             } 
-            if (t1 > t2 && r.isValid(t2)){
+            if (r.isValid(t2)){
                 Point temp = Vector.add(r.x0, Vector.multiply(t2, r.d));
                 Direction n = Vector.divide(Vector.subtract(temp, center), radius); 
                 double inclination = Math.acos(n.y);

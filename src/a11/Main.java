@@ -23,16 +23,16 @@ public class Main {
       scene.add(ground);
       scene.add(s1);
       scene.add(earth);
-      Light l1 = new Pointlight(Vector.point(1, 0, -3.5), Color.yellow);
+      Light l1 = new Pointlight(Vector.point(0, 1, -4), new Color(7, 4, 0));
       Light l2 = new Directlight(Vector.direction(1, 1, 0), new Color(2, 2, 2));
       World world = new World(scene);
-      world.addLight(l1);
+      world.addLight(l2);
       LightRaytracer content = new LightRaytracer(width, height, 100, world);
 
       Image image = new Image((int) width, (int) height);
       image.superSample(content, ABTASTUNGEN_PRO_PIXEL, 8);      
 
-      final String filename = "doc/a11-1.png";
+      final String filename = "doc/a11-2.png";
       image.write(filename);
       System.out.println("Wrote image: " + filename);  
 

@@ -18,7 +18,8 @@ public class Directlight implements Light {
 
     @Override
     public Color incomingIntensity(Point hit, Direction normal, Shape scene) {
-        Ray shadow = new Ray(hit, dir, 0.0001, Vector.length(dir));
+        
+        Ray shadow = new Ray(hit, dir, 0.0001, Double.MAX_VALUE);
         if (scene.intersect(shadow) != null){
             return Color.black;
         }
