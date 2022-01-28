@@ -94,6 +94,7 @@ public final class Color {
   public static final Color lightpink = color(1, 0.8, 0.8);
   public static final Color mint = color(0.7, 0.9, 0.8);
   public static final Color brown = color(0.6, 0.4, 0.2);
+  public static final Color gold = color(0.7, 0.35, 0.1);
 
   private static Color hue(double h) {
     double r = Math.abs(h * 6 - 3) - 1;
