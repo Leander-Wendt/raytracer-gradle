@@ -11,8 +11,8 @@ import a10.*;
 public class Main {
     public static void main(String[] args){
       double start = System.currentTimeMillis();
-      final double width = 480;
-      final double height = 270;
+      final double width = 1920;
+      final double height = 1080;
       final int ABTASTUNGEN_PRO_PIXEL = 100;
 
       Shape background = new Background(new BackMat(new TextureTransform(new Texture("doc/desert_sky.jpg"), Matrix.rotation(Vector.yAxis, 0))));
